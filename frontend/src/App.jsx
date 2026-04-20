@@ -9,21 +9,20 @@ import { AuthContext } from "../context/AuthContext";
 function App() {
   const { authUser, loading } = useContext(AuthContext);
 
-  // ⛔ Prevent flicker while checking auth
   if (loading) {
     return (
-      <div className="h-screen flex items-center justify-center">
-        <p>Loading...</p>
+      <div className="h-screen flex items-center justify-center text-white">
+        Loading...
       </div>
     );
   }
 
   return (
-    <div className="bg-[url('./src/chat-app-assets/bgImage.svg')] bg-contain min-h-screen">
+    <div className="bg-[url('/bgImage.svg')] bg-cover bg-center min-h-screen">
       <Toaster />
 
       <Routes>
-        {/* 🟢 Protected Routes */}
+        {/* Protected */}
         <Route
           path="/"
           element={authUser ? <HomePage /> : <Navigate to="/login" replace />}
@@ -34,7 +33,7 @@ function App() {
           element={authUser ? <ProfilePage /> : <Navigate to="/login" replace />}
         />
 
-        {/* 🔵 Public Route */}
+        {/* Public */}
         <Route
           path="/login"
           element={!authUser ? <LoginPage /> : <Navigate to="/" replace />}
